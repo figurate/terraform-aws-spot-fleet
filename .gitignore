@@ -1,3 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 terraform-aws-spot-fleet.iml
 .terraform/
+*.tfvars
+*tfstate*

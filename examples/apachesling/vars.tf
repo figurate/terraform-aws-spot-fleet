@@ -1,9 +1,11 @@
 variable "name" {
   description = "A name associated with the spotfleet"
+  default = "apachesling"
 }
 
 variable "launch_template" {
   description = "A launch template identifier"
+  default = "apachesling"
 }
 
 variable "fleet_min" {
@@ -19,14 +21,4 @@ variable "fleet_max" {
 variable "fleet_desired" {
   description = "Desired number of instances in the ASG"
   default     = 0
-}
-
-variable "vpc" {
-  description = "Name of the VPC to deploy to"
-  default     = null
-}
-
-variable "subnets" {
-  description = "Subnets to deploy into"
-  default     = null
 }
