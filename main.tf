@@ -13,9 +13,12 @@ data "aws_vpc" "vpc" {
   }
 }
 
-data "aws_subnet_ids" "subnets" {
-  count  = var.vpc != null ? 1 : 0
-  vpc_id = data.aws_vpc.vpc[0].id
+data "aws_subnets" "subnets" {
+  count = var.vpc != null ? 1 : 0
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.vpc[0].id]
+  }
   tags = {
     Name = var.subnets
   }
@@ -40,7 +43,7 @@ resource "aws_spot_fleet_request" "spotfleet" {
     }
 
     dynamic "overrides" {
-      for_each = data.aws_subnet_ids.subnets
+      for_each = data.aws_subnets.subnets
       content {
         subnet_id = overrides.value.id
       }

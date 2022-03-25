@@ -11,7 +11,7 @@ clean:
 	rm -rf .terraform/
 
 validate:
-	$(TERRAFORM) init && $(TERRAFORM) validate
+	$(TERRAFORM) init -upgrade && $(TERRAFORM) validate
 
 test: validate
 	$(CHECKOV) -d /work
@@ -25,8 +25,7 @@ docs: diagram
 	$(TERRAFORM_DOCS) markdown ./ >./README.md
 
 format:
-	$(TERRAFORM) fmt -list=true ./ && \
-		$(TERRAFORM) fmt -list=true ./examples/nginx
+	$(TERRAFORM) fmt -list=true ./
 
 example:
 	$(TERRAFORM) init examples/$(EXAMPLE) && $(TERRAFORM) plan -input=false examples/$(EXAMPLE)
